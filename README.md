@@ -59,27 +59,30 @@ Didn't add any pagination here either since it wasn't in the requirements but th
 I'm typically a fan of the reducer pattern, something like:
 ```elixir
 defmodule Todos.Item do
-# ...
-import Ecto.Query
+  # ...
+  import Ecto.Query
 
-def base_query(), do: __MODULE__
+  def base_query(), do: __MODULE__
 
-def filter(query \\ base_query(), filters) do
-Enum.reduce(filters, query, fn
-  {"list_id", list_id}, query ->
-    from(q in query, where: q.list_id == ^list_id)
+  def filter(query \\ base_query(), filters) do
+    Enum.reduce(filters, query, fn
+      {"list_id", list_id}, query ->
+        from(q in query, where: q.list_id == ^list_id)
 
-  {"limit", limit}, query ->
-    from(q in query, limit: ^limit)
-end)
+      {"limit", limit}, query ->
+        from(q in query, limit: ^limit)
+    end)
+  end
+end
 
 defmodule Todos do
 # ...
 
-def list_items(params \\ %{}) do
-  params
-  |> Item.filter()
-  |> Repo.all()
+  def list_items(params \\ %{}) do
+    params
+    |> Item.filter()
+    |> Repo.all()
+  end
 end
 ```
 There's a few ways to implement that to handle common params like pagination and filtering but I've found that strategy to be pretty powerful. But for this project it would be overkill.
