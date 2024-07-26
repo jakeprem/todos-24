@@ -60,13 +60,17 @@ Didn't add any pagination here either since it wasn't in the requirements but th
 
 Everything should have decent error handling. In some cases the status codes might not match exactly what you'd want in your production API, but that's also somewhat project specific. I'm generally returning 404s if any required record is missing and 422s for any mutations that are otherwise missing parameters.
 
+### Git History
+
+Not as clean as it could be, most of the commits have more/broader changes than you'd typically want if you were being really disciplined about it.
+
 ### OpenAPI Spec
 
 I generated the OpenAPI spec and made a few manual tweaks. It should be accurate and you should be able to copy or load it into any Swagger UI (such as https://editor-next.swagger.io/) and execute queries against your locally running API. CORs is configured to be permissive when running in dev.
 
 ### React UI
 
-You should be able to run this from the `webapp` directory with a simple `npm install` and `npm start`.
+You should be able to run this from the `webapp` directory with a simple `npm install` and `npm start`, then go to [`localhost:3000`](http://localhost:3000)
 
 Since building the UI wasn't part of the requirements I opted to generate this as well,
 mainly just as another way to test the API.
