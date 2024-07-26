@@ -64,3 +64,9 @@ Everything should have decent error handling. In some cases the status codes mig
 
 I generated the OpenAPI spec and made a few manual tweaks. It should be accurate and you should be able to copy or load it into any Swagger UI (such as https://editor-next.swagger.io/) and execute queries against your locally running API. CORs is configured to be permissive when running in dev.
 
+### React UI
+
+You should be able to run this from the `webapp` directory with a simple `npm install` and `npm start`.
+
+Since building the UI wasn't part of the requirements I opted to generate this as well,
+mainly just as another way to test the API.
