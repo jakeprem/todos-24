@@ -56,6 +56,34 @@ SQLite can take you quite far, but in most real world use-cases I'd still use Po
 
 Didn't add any pagination here either since it wasn't in the requirements but that's probably the next thing to add, probably right after auth. Would lean towards cursor based unless requirements specfically called for offset.
 
+I'm typically a fan of the reducer pattern, something like:
+```elixir
+defmodule Todos.Item do
+# ...
+import Ecto.Query
+
+def base_query(), do: __MODULE__
+
+def filter(query \\ base_query(), filters) do
+Enum.reduce(filters, query, fn
+  {"list_id", list_id}, query ->
+    from(q in query, where: q.list_id == ^list_id)
+
+  {"limit", limit}, query ->
+    from(q in query, limit: ^limit)
+end)
+
+defmodule Todos do
+# ...
+
+def list_items(params \\ %{}) do
+  params
+  |> Item.filter()
+  |> Repo.all()
+end
+```
+There's a few ways to implement that to handle common params like pagination and filtering but I've found that strategy to be pretty powerful. But for this project it would be overkill.
+
 ### Error Handling
 
 Everything should have decent error handling. In some cases the status codes might not match exactly what you'd want in your production API, but that's also somewhat project specific. I'm generally returning 404s if any required record is missing and 422s for any mutations that are otherwise missing parameters.
