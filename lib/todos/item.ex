@@ -1,5 +1,7 @@
 defmodule Todos.Item do
+  @moduledoc false
   use Ecto.Schema
+
   import Ecto.Changeset
 
   schema "items" do
@@ -13,7 +15,8 @@ defmodule Todos.Item do
   @doc false
   def changeset(item, attrs) do
     item
-    |> cast(attrs, [:description, :done])
-    |> validate_required([:description])
+    |> cast(attrs, [:description, :done, :list_id])
+    |> validate_required([:description, :list_id])
+    |> foreign_key_constraint(:list_id)
   end
 end

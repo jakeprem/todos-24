@@ -3,8 +3,10 @@ defmodule Todos do
   For an app this small we can fit everything in a single top level context.
   """
 
+  import Ecto.Query
+
+  alias Todos.Item
   alias Todos.List
-  # alias Todos.Item
   alias Todos.Repo
 
   @doc """
@@ -44,5 +46,60 @@ defmodule Todos do
   """
   def delete_list(%List{} = list) do
     Repo.delete(list)
+  end
+
+  @doc """
+  Returns all items, regardless of the list they belong to
+  """
+  def list_items do
+    Repo.all(Item)
+  end
+
+  @doc """
+  List all items for a todo list.
+  """
+  def list_list_items(list_id) do
+    Repo.all(from(i in Item, where: i.list_id == ^list_id))
+  end
+
+  @doc """
+  Get an item by ID.
+  """
+  def get_item(id) do
+    Repo.get(Item, id)
+  end
+
+  @doc """
+  Create a new item.
+  """
+  def create_item(attrs) do
+    %Item{}
+    |> Item.changeset(attrs)
+    |> Repo.safe_insert()
+  end
+
+  @doc """
+  Update an item.
+  """
+  def update_item(%Item{} = item, attrs) do
+    item
+    |> Item.changeset(attrs)
+    |> Repo.safe_update()
+  end
+
+  @doc """
+  Delete an item.
+  """
+  def delete_item(%Item{} = item) do
+    Repo.delete(item)
+  end
+
+  @doc """
+  Sets the `done` field of an item to `true` or `false`.
+  """
+  def set_item_done(%Item{} = item, done) do
+    item
+    |> Item.changeset(%{done: done})
+    |> Repo.safe_update()
   end
 end

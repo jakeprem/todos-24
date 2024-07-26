@@ -8,6 +8,8 @@ defmodule TodosWeb.Router do
   scope "/api", TodosWeb do
     pipe_through :api
 
-    resources "/lists", ListController, except: [:new, :edit]
+    resources "/lists", ListController, except: [:new, :edit] do
+      resources "/items", ListItemController, except: [:new, :edit]
+    end
   end
 end

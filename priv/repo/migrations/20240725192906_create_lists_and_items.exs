@@ -16,7 +16,7 @@ defmodule Todos.Repo.Migrations.CreateListsAndItems do
       timestamps()
     end
 
-    create unique_index(:lists, [:name])
     create index(:items, [:list_id])
+    create unique_index(:lists, [:name])
   end
 end
