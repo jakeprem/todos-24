@@ -72,7 +72,7 @@ Also looking at this it looks like I missed adding required fields, so if you we
 
 ### React UI
 
-You should be able to run this from the `webapp` directory with a simple `npm install` and `npm start`, then go to [`localhost:3000`](http://localhost:3000)
+You should be able to run this from the `frontend` directory with a simple `npm install` and `npm start`, then go to [`localhost:3000`](http://localhost:3000)
 
 Since building the UI wasn't part of the requirements I opted to generate this as well,
 mainly just as another way to test the API.
