@@ -8,13 +8,4 @@ defmodule TodosWeb.Router do
   scope "/api", TodosWeb do
     pipe_through :api
   end
-
-  # Enable Swoosh mailbox preview in development
-  if Application.compile_env(:todos, :dev_routes) do
-    scope "/dev" do
-      pipe_through [:fetch_session, :protect_from_forgery]
-
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
-    end
-  end
 end

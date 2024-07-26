@@ -17,12 +17,6 @@ config :todos, TodosWeb.Endpoint,
   secret_key_base: "5wohe55kLu5Gtb65IRKmU20nz8/iTEkl3Be2pbrynJpZbMFLuBgPZZARLNX+DtOP",
   server: false
 
-# In test we don't send emails
-config :todos, Todos.Mailer, adapter: Swoosh.Adapters.Test
-
-# Disable swoosh api client as it is only required for production adapters
-config :swoosh, :api_client, false
-
 # Print only warnings and errors during test
 config :logger, level: :warning
 

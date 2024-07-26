@@ -22,15 +22,6 @@ config :todos, TodosWeb.Endpoint,
   pubsub_server: Todos.PubSub,
   live_view: [signing_salt: "BtYosVw5"]
 
-# Configures the mailer
-#
-# By default it uses the "Local" adapter which stores the emails
-# locally. You can see the emails in your browser, at "/dev/mailbox".
-#
-# For production it's recommended to configure a different adapter
-# at the `config/runtime.exs`.
-config :todos, Todos.Mailer, adapter: Swoosh.Adapters.Local
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
