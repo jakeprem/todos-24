@@ -1,5 +1,7 @@
 defmodule Todos.List do
-  @moduledoc false
+  @moduledoc """
+  A list of tasks (items) that need to be done.
+  """
   use Ecto.Schema
 
   import Ecto.Changeset

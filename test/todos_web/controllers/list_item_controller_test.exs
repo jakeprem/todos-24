@@ -63,12 +63,23 @@ defmodule TodosWeb.ListItemsControllerTest do
              }
     end
 
-    test "returns an error when the list does not exist", %{conn: conn} do
+    test "returns a 404 error when the list does not exist", %{conn: conn} do
       conn = post(conn, ~p"/api/lists/1/items", %{"item" => %{"description" => "test item"}})
 
       assert json_response(conn, 404) == %{
                "errors" => %{
                  "detail" => "Not Found"
+               }
+             }
+    end
+
+    test "returns a 422 error when the data isn't under item key", %{conn: conn} do
+      list = Factory.insert!(:list)
+      conn = post(conn, ~p"/api/lists/#{list.id}/items", %{"description" => "test item"})
+
+      assert json_response(conn, 422) == %{
+               "errors" => %{
+                 "detail" => "Expected data under the 'item' key"
                }
              }
     end

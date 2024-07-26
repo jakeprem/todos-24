@@ -33,7 +33,7 @@ defmodule TodosWeb.ListControllerTest do
         "name" => "test list"
       }
 
-      conn = post(conn, ~p"/api/lists", %{list: list_params})
+      conn = post(conn, ~p"/api/lists", %{"list" => list_params})
 
       assert %{"data" => %{"id" => list_id, "name" => "test list"}} = json_response(conn, 201)
       assert get_resp_header(conn, "location") == ["/api/lists/#{list_id}"]
@@ -45,6 +45,28 @@ defmodule TodosWeb.ListControllerTest do
       assert json_response(conn, 422) == %{
                "errors" => %{
                  "name" => ["can't be blank"]
+               }
+             }
+    end
+
+    test "returns an error when the list already exists", %{conn: conn} do
+      insert!(:list, name: "test list")
+
+      conn = post(conn, ~p"/api/lists", %{"list" => %{"name" => "test list"}})
+
+      assert json_response(conn, 422) == %{
+               "errors" => %{
+                 "name" => ["has already been taken"]
+               }
+             }
+    end
+
+    test "returns an error when data not under list key", %{conn: conn} do
+      conn = post(conn, ~p"/api/lists", %{"name" => "test list"})
+
+      assert json_response(conn, 422) == %{
+               "errors" => %{
+                 "detail" => "Expected data under the 'list' key"
                }
              }
     end

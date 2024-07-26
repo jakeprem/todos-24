@@ -10,12 +10,8 @@ defmodule Todos.Application do
     children = [
       TodosWeb.Telemetry,
       Todos.Repo,
-      {Ecto.Migrator,
-       repos: Application.fetch_env!(:todos, :ecto_repos), skip: skip_migrations?()},
-      {DNSCluster, query: Application.get_env(:todos, :dns_cluster_query) || :ignore},
+      {Ecto.Migrator, repos: Application.fetch_env!(:todos, :ecto_repos), skip: skip_migrations?()},
       {Phoenix.PubSub, name: Todos.PubSub},
-      # Start the Finch HTTP client for sending emails
-      {Finch, name: Todos.Finch},
       # Start a worker by calling: Todos.Worker.start_link(arg)
       # {Todos.Worker, arg},
       # Start to serve requests, typically the last entry
@@ -36,7 +32,7 @@ defmodule Todos.Application do
     :ok
   end
 
-  defp skip_migrations?() do
+  defp skip_migrations? do
     # By default, sqlite migrations are run when using a release
     System.get_env("RELEASE_NAME") != nil
   end

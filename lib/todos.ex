@@ -1,5 +1,7 @@
 defmodule Todos do
   @moduledoc """
+  Manage todo lists and items.
+
   For an app this small we can fit everything in a single top level context.
   """
 

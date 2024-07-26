@@ -1,5 +1,7 @@
 defmodule Todos.Item do
-  @moduledoc false
+  @moduledoc """
+  An item in a todo list.
+  """
   use Ecto.Schema
 
   import Ecto.Changeset

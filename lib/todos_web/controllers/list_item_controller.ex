@@ -14,6 +14,9 @@ defmodule TodosWeb.ListItemController do
     item_params = Map.put(item_params, "list_id", list_id)
 
     with {:ok, list_id} <- parse_int(list_id),
+         # In this case we could just let the foreign key constraint fail if the list doesn't exist
+         #  That would save us a database query, but for this simple app I'm choosing consistency with
+         # the update logic.
          %List{} <- Todos.get_list(list_id),
          {:ok, item} <- Todos.create_item(item_params) do
       conn
@@ -21,6 +24,10 @@ defmodule TodosWeb.ListItemController do
       |> put_resp_header("location", ~s"/api/lists/#{list_id}/items/#{item.id}")
       |> render(:show, item: item)
     end
+  end
+
+  def create(conn, _params) do
+    render_body_field_error(conn, "item")
   end
 
   def update(conn, %{"list_id" => list_id, "id" => id, "item" => item_params}) do
@@ -40,6 +47,10 @@ defmodule TodosWeb.ListItemController do
     end
   end
 
+  def update(conn, _params) do
+    render_body_field_error(conn, "item")
+  end
+
   def delete(conn, %{"list_id" => list_id, "id" => id}) do
     with {:ok, list_id} <- parse_int(list_id),
          %List{} <- Todos.get_list(list_id),
@@ -47,6 +58,13 @@ defmodule TodosWeb.ListItemController do
          {:ok, _} <- Todos.delete_item(item) do
       send_resp(conn, :no_content, "")
     end
+  end
+
+  defp render_body_field_error(conn, expected_field) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(TodosWeb.ErrorJSON)
+    |> render("422.json", %{error: "Expected data under the '#{expected_field}' key"})
   end
 
   defp parse_int(string) do
