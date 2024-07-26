@@ -7,19 +7,19 @@
 # General application configuration
 import Config
 
-config :app,
-  ecto_repos: [App.Repo],
+config :todos,
+  ecto_repos: [Todos.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
-config :app, AppWeb.Endpoint,
+config :todos, TodosWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
-    formats: [json: AppWeb.ErrorJSON],
+    formats: [json: TodosWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: App.PubSub,
+  pubsub_server: Todos.PubSub,
   live_view: [signing_salt: "BtYosVw5"]
 
 # Configures the mailer
@@ -29,7 +29,7 @@ config :app, AppWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :app, App.Mailer, adapter: Swoosh.Adapters.Local
+config :todos, Todos.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configures Elixir's Logger
 config :logger, :console,

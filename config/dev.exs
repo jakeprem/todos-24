@@ -1,8 +1,8 @@
 import Config
 
 # Configure your database
-config :app, App.Repo,
-  database: Path.expand("../app_dev.db", __DIR__),
+config :todos, Todos.Repo,
+  database: Path.expand("../todos_dev.db", __DIR__),
   pool_size: 5,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true
@@ -13,7 +13,7 @@ config :app, App.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
-config :app, AppWeb.Endpoint,
+config :todos, TodosWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
@@ -47,7 +47,7 @@ config :app, AppWeb.Endpoint,
 # different ports.
 
 # Enable dev routes for dashboard and mailbox
-config :app, dev_routes: true
+config :todos, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

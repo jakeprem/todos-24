@@ -1,9 +1,9 @@
-defmodule App.MixProject do
+defmodule Todos.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :app,
+      app: :todos,
       version: "0.1.0",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -15,10 +15,10 @@ defmodule App.MixProject do
 
   # Configuration for the OTP application.
   #
-  # Type `mix help compile.app` for more information.
+  # Type `mix help compile.todos` for more information.
   def application do
     [
-      mod: {App.Application, []},
+      mod: {Todos.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

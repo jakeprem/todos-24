@@ -1,12 +1,12 @@
-defmodule AppWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :app
+defmodule TodosWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :todos
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_app_key",
+    key: "_todos_key",
     signing_salt: "zDOx4RVK",
     same_site: "Lax"
   ]
@@ -21,15 +21,15 @@ defmodule AppWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :app,
+    from: :todos,
     gzip: false,
-    only: AppWeb.static_paths()
+    only: TodosWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :app
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :todos
   end
 
   plug Plug.RequestId
@@ -43,5 +43,5 @@ defmodule AppWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug AppWeb.Router
+  plug TodosWeb.Router
 end

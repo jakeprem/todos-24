@@ -1,5 +1,5 @@
-defmodule App.Repo do
+defmodule Todos.Repo do
   use Ecto.Repo,
-    otp_app: :app,
+    otp_app: :todos,
     adapter: Ecto.Adapters.SQLite3
 end

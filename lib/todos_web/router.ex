@@ -1,17 +1,16 @@
-defmodule AppWeb.Router do
-  use AppWeb, :router
+defmodule TodosWeb.Router do
+  use TodosWeb, :router
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/api", AppWeb do
+  scope "/api", TodosWeb do
     pipe_through :api
   end
 
   # Enable Swoosh mailbox preview in development
-  if Application.compile_env(:app, :dev_routes) do
-
+  if Application.compile_env(:todos, :dev_routes) do
     scope "/dev" do
       pipe_through [:fetch_session, :protect_from_forgery]
 

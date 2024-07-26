@@ -1,4 +1,4 @@
-# App
+# Todos
 
 To start your Phoenix server:
 

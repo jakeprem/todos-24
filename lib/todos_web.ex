@@ -1,12 +1,12 @@
-defmodule AppWeb do
+defmodule TodosWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use AppWeb, :controller
-      use AppWeb, :html
+      use TodosWeb, :controller
+      use TodosWeb, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -39,10 +39,10 @@ defmodule AppWeb do
     quote do
       use Phoenix.Controller,
         formats: [:html, :json],
-        layouts: [html: AppWeb.Layouts]
+        layouts: [html: TodosWeb.Layouts]
 
       import Plug.Conn
-      import AppWeb.Gettext
+      import TodosWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -51,14 +51,14 @@ defmodule AppWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: AppWeb.Endpoint,
-        router: AppWeb.Router,
-        statics: AppWeb.static_paths()
+        endpoint: TodosWeb.Endpoint,
+        router: TodosWeb.Router,
+        statics: TodosWeb.static_paths()
     end
   end
 
   @doc """
-  When used, dispatch to the appropriate controller/live_view/etc.
+  When used, dispatch to the todosropriate controller/live_view/etc.
   """
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])

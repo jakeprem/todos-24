@@ -1,11 +1,11 @@
-defmodule App.Todos.Item do
+defmodule Todos.Todos.Item do
   use Ecto.Schema
   import Ecto.Changeset
 
   schema "items" do
     field :description, :string
     field :done, :boolean, default: false
-    belongs_to :list, App.Todos.List
+    belongs_to :list, Todos.Todos.List
 
     timestamps()
   end
