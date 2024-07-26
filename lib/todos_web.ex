@@ -23,9 +23,10 @@ defmodule TodosWeb do
     quote do
       use Phoenix.Router, helpers: false
 
+      import Phoenix.Controller
+
       # Import common connection and controller functions to use in pipelines
       import Plug.Conn
-      import Phoenix.Controller
     end
   end
 
@@ -45,6 +46,8 @@ defmodule TodosWeb do
       import TodosWeb.Gettext
 
       unquote(verified_routes())
+
+      action_fallback TodosWeb.FallbackController
     end
   end
 

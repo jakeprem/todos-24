@@ -18,12 +18,13 @@ defmodule Todos.DataCase do
 
   using do
     quote do
-      alias Todos.Repo
-
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
       import Todos.DataCase
+      import Todos.Factory
+
+      alias Todos.Repo
     end
   end
 

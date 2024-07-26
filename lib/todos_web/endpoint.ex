@@ -43,5 +43,10 @@ defmodule TodosWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+
+  if Mix.env() == :dev do
+    plug CORSPlug
+  end
+
   plug TodosWeb.Router
 end

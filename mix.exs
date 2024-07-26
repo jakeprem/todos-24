@@ -42,7 +42,9 @@ defmodule Todos.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:styler, "~> 0.11"},
+      {:cors_plug, "~> 3.0"}
     ]
   end
 
