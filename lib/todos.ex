@@ -93,13 +93,4 @@ defmodule Todos do
   def delete_item(%Item{} = item) do
     Repo.delete(item)
   end
-
-  @doc """
-  Sets the `done` field of an item to `true` or `false`.
-  """
-  def set_item_done(%Item{} = item, done) do
-    item
-    |> Item.changeset(%{done: done})
-    |> Repo.safe_update()
-  end
 end
