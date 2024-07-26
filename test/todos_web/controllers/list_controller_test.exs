@@ -10,8 +10,18 @@ defmodule TodosWeb.ListControllerTest do
 
       assert json_response(conn, 200) == %{
                "data" => [
-                 %{"id" => list1.id, "name" => list1.name},
-                 %{"id" => list2.id, "name" => list2.name}
+                 %{
+                   "id" => list1.id,
+                   "name" => list1.name,
+                   "createdAt" => format_datetime(list1.inserted_at),
+                   "updatedAt" => format_datetime(list1.updated_at)
+                 },
+                 %{
+                   "id" => list2.id,
+                   "name" => list2.name,
+                   "createdAt" => format_datetime(list2.inserted_at),
+                   "updatedAt" => format_datetime(list2.updated_at)
+                 }
                ]
              }
     end
@@ -49,7 +59,9 @@ defmodule TodosWeb.ListControllerTest do
       assert json_response(conn, 200) == %{
                "data" => %{
                  "id" => list.id,
-                 "name" => list.name
+                 "name" => list.name,
+                 "createdAt" => format_datetime(list.inserted_at),
+                 "updatedAt" => format_datetime(list.updated_at)
                }
              }
     end
@@ -71,10 +83,14 @@ defmodule TodosWeb.ListControllerTest do
 
       conn = put(conn, ~s"/api/lists/#{list.id}", %{"list" => %{"name" => "updated list"}})
 
-      assert json_response(conn, 200) == %{
+      assert result = json_response(conn, 200)
+
+      assert result == %{
                "data" => %{
                  "id" => list.id,
-                 "name" => "updated list"
+                 "name" => "updated list",
+                 "createdAt" => format_datetime(list.inserted_at),
+                 "updatedAt" => result["data"]["updatedAt"]
                }
              }
     end
@@ -120,5 +136,9 @@ defmodule TodosWeb.ListControllerTest do
                }
              }
     end
+  end
+
+  defp format_datetime(%NaiveDateTime{} = datetime) do
+    NaiveDateTime.to_iso8601(datetime)
   end
 end

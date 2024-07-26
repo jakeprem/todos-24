@@ -16,8 +16,22 @@ defmodule TodosWeb.ListItemsControllerTest do
 
       assert json_response(conn, 200) == %{
                "data" => [
-                 %{"id" => item1.id, "description" => item1.description, "done" => item1.done},
-                 %{"id" => item2.id, "description" => item2.description, "done" => item2.done}
+                 %{
+                   "id" => item1.id,
+                   "description" => item1.description,
+                   "done" => item1.done,
+                   "listId" => item1.list_id,
+                   "createdAt" => format_datetime(item1.inserted_at),
+                   "updatedAt" => format_datetime(item1.updated_at)
+                 },
+                 %{
+                   "id" => item2.id,
+                   "description" => item2.description,
+                   "done" => item2.done,
+                   "listId" => item2.list_id,
+                   "createdAt" => format_datetime(item2.inserted_at),
+                   "updatedAt" => format_datetime(item2.updated_at)
+                 }
                ]
              }
     end
@@ -67,11 +81,17 @@ defmodule TodosWeb.ListItemsControllerTest do
 
       conn = put(conn, ~p"/api/lists/#{list.id}/items/#{item.id}", %{"item" => %{"description" => "updated item"}})
 
-      assert json_response(conn, 200) == %{
+      assert result = json_response(conn, 200)
+
+      assert result == %{
                "data" => %{
                  "id" => item.id,
                  "description" => "updated item",
-                 "done" => item.done
+                 "done" => item.done,
+                 "listId" => item.list_id,
+                 "createdAt" => format_datetime(item.inserted_at),
+                 # This will make sure updatedAt is present in the response, but not worrying about checking that it's correct in this particular test
+                 "updatedAt" => result["data"]["updatedAt"]
                }
              }
     end
@@ -134,5 +154,9 @@ defmodule TodosWeb.ListItemsControllerTest do
                }
              }
     end
+  end
+
+  defp format_datetime(%NaiveDateTime{} = datetime) do
+    NaiveDateTime.to_iso8601(datetime)
   end
 end

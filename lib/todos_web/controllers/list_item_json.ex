@@ -10,6 +10,13 @@ defmodule TodosWeb.ListItemJSON do
   end
 
   defp data(%Item{} = item) do
-    %{id: item.id, description: item.description, done: item.done}
+    %{
+      id: item.id,
+      description: item.description,
+      done: item.done,
+      listId: item.list_id,
+      createdAt: item.inserted_at,
+      updatedAt: item.updated_at
+    }
   end
 end

@@ -44,6 +44,14 @@ defmodule TodosTest do
       assert {:error, changeset} = list
       assert {"can't be blank", _} = changeset.errors[:name]
     end
+
+    test "returns error if list name is not unique" do
+      insert!(:list, name: "test list")
+
+      assert {:error, changeset} = Todos.create_list(%{name: "test list"})
+
+      assert {"has already been taken", _} = changeset.errors[:name]
+    end
   end
 
   describe "update_list/1" do
