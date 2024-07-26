@@ -68,6 +68,8 @@ Not as clean as it could be, most of the commits have more/broader changes than 
 
 I generated the OpenAPI spec and made a few manual tweaks. It should be accurate and you should be able to copy or load it into any Swagger UI (such as https://editor-next.swagger.io/) and execute queries against your locally running API. CORs is configured to be permissive when running in dev.
 
+Also looking at this it looks like I missed adding required fields, so if you were to generate an API client off of this spec you'd be dealing with lots of extra nullable fields in your types. That's something that should be fixed before generating a frontend i.e. Typescript client.
+
 ### React UI
 
 You should be able to run this from the `webapp` directory with a simple `npm install` and `npm start`, then go to [`localhost:3000`](http://localhost:3000)
